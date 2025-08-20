@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Decorate Cake</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="left-panel">
+      <h1>Design the <br><span>Cake</span></h1>
+      <p>Select your favorite icing design:</p>
+
+      <!-- Vanilla Section -->
+      <div id="vanilla-designs" class="flavor-section" style="display: none;">
+        <h2>🤍 Vanilla</h2>
+        <div class="design-buttons">
+          <div class="design-card" onclick="selectIcing('vanilla1')"><img src="icons/vanilla_design1.png"><p>Design 1</p></div>
+          <div class="design-card" onclick="selectIcing('vanilla2')"><img src="icons/vanilla_design2.png"><p>Design 2</p></div>
+          <div class="design-card" onclick="selectIcing('vanilla3')"><img src="icons/vanilla_design3.png"><p>Design 3</p></div>
+          <div class="design-card" onclick="selectIcing('vanilla4')"><img src="icons/vanilla_design4.png"><p>Design 4</p></div>
+          <div class="design-card" onclick="selectIcing('vanilla5')"><img src="icons/vanilla_design5.png"><p>Design 5</p></div>
+        </div>
+        <h2>📷 Image</h2>
+        <div class="design-buttons">
+          <div class="design-card" onclick="selectIcing('image')"><img src="icons/image_design.png"><p>Custom Image</p></div>
+        </div>
+      </div>
+
+      <!-- Chocolate Section -->
+      <div id="chocolate-designs" class="flavor-section" style="display: none;">
+        <h2>🍫 Chocolate</h2>
+        <div class="design-buttons">
+          <div class="design-card" onclick="selectIcing('chocolate1')"><img src="icons/chocolate_design1.png"><p>Design 1</p></div>
+          <div class="design-card" onclick="selectIcing('chocolate2')"><img src="icons/chocolate_design2.png"><p>Design 2</p></div>
+          <div class="design-card" onclick="selectIcing('chocolate3')"><img src="icons/chocolate_design3.png"><p>Design 3</p></div>
+          <div class="design-card" onclick="selectIcing('chocolate4')"><img src="icons/chocolate_design4.png"><p>Design 4</p></div>
+          <div class="design-card" onclick="selectIcing('chocolate5')"><img src="icons/chocolate_design5.png"><p>Design 5</p></div>
+        </div>
+        <h2>📷 Image</h2>
+        <div class="design-buttons">
+          <div class="design-card" onclick="selectIcing('image')"><img src="icons/image_design.png"><p>Custom Image</p></div>
+        </div>
+      </div>
+
+      <!-- Strawberry Section -->
+      <div id="strawberry-designs" class="flavor-section" style="display: none;">
+        <h2>🍓 Strawberry</h2>
+        <div class="design-buttons">
+          <div class="design-card" onclick="selectIcing('strawberry1')"><img src="icons/strawberry_design1.png"><p>Design 1</p></div>
+          <div class="design-card" onclick="selectIcing('strawberry2')"><img src="icons/strawberry_design2.png"><p>Design 2</p></div>
+          <div class="design-card" onclick="selectIcing('strawberry3')"><img src="icons/strawberry_design3.png"><p>Design 3</p></div>
+          <div class="design-card" onclick="selectIcing('strawberry4')"><img src="icons/strawberry_design4.png"><p>Design 4</p></div>
+          <div class="design-card" onclick="selectIcing('strawberry5')"><img src="icons/strawberry_design5.png"><p>Design 5</p></div>
+        </div>
+        <h2>📷 Image</h2>
+        <div class="design-buttons">
+          <div class="design-card" onclick="selectIcing('image')"><img src="icons/image_design.png"><p>Custom Image</p></div>
+        </div>
+      </div>
+
+      <div class="next-button-container">
+        <button id="nextBtn">Next ➡️</button>
+        <button onclick="goBack()">⬅️ Back</button>
+        <button id="clearBtn">❌ Clear</button>
+      </div>
+    </div>
+
+    <div class="right-panel">
+      <h2>Preview</h2>
+      <div id="container3D" style="width: 100%; height: 100vh;"></div>
+    </div>
+  </div>
+
+  <script type="module" src="js/design.js"></script>
+  <script>
+    // Reset design on page load
+    localStorage.removeItem('selectedDesign');
+
+    const baseIcing = localStorage.getItem('selectedIcing');
+    const flavorMatch = baseIcing?.match(/^([a-z]+)/i);
+    if (flavorMatch) {
+      document.getElementById(`${flavorMatch[1]}-designs`).style.display = "block";
+    }
+
+    function selectIcing(design) {
+      if (design === 'image') {
+        window.location.href = 'upload.html';
+        return;
+      }
+
+      const match = design.match(/^([a-z]+)(\d)$/i);
+      if (match) {
+        const [_, icing, num] = match;
+        localStorage.setItem('selectedIcing', icing);
+        localStorage.setItem('selectedDesign', num);
+        const shape = localStorage.getItem('selectedShape') || 'round';
+        if (window.loadModel) window.loadModel(shape, icing, num);
+
+        // highlight selected card
+        document.querySelectorAll('.design-card').forEach(card => card.classList.remove('selected'));
+        event.currentTarget.classList.add('selected');
+      }
+    }
+
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      if (!localStorage.getItem('selectedDesign')) {
+        alert("Please select an icing design before proceeding.");
+        return;
+      }
+      localStorage.removeItem('uploadedImagePath'); // clear image if user chose design
+      window.location.href = "color.html";
+    });
+
+    document.getElementById('clearBtn').addEventListener('click', () => {
+      if (confirm("Are you sure you want to clear the selected design?")) {
+        localStorage.removeItem('selectedDesign');
+        document.querySelectorAll('.design-card').forEach(card => card.classList.remove('selected'));
+
+        const shape = localStorage.getItem('selectedShape') || 'round';
+        const icingFlavor = localStorage.getItem('selectedIcing');
+
+        if (icingFlavor && window.loadModelByPath) {
+          window.loadModelByPath(`./models/icing/${shape}_${icingFlavor}.glb`);
+        } else if (window.loadModelByPath) {
+          window.loadModelByPath(`./models/shape/${shape}_shape.glb`);
+        }
+      }
+    });
+    localStorage.setItem('selectedShapeDesign', `${shape}_${num}`);
+    function goBack() {
+      window.location.href = 'icing.html';
+    }
+  </script>
+</body>
+</html>

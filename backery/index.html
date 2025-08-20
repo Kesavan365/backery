@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Birthdaycake</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    /* Signup icon styling */
+    .signup-icon {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 28px;
+      color: #ff4081;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    .signup-icon:hover {
+      color: #e91e63;
+    }
+  </style>
+</head>
+<body>
+  <!-- Signup icon -->
+  <a href="php/signup.php" class="signup-icon" title="Sign Up">
+    <i class="fa-solid fa-user-plus"></i>
+  </a>
+
+  <div class="container">
+    <div class="left-panel">
+      <h1>Welcome to <br><span>Birthdaycake!</span></h1>
+      <ul>
+        <li><img src="icons/index1.png" alt="Step 1"> Customize a cake for your friend.</li>
+        <li><img src="icons/index2.png" alt="Step 2"> Add your candle and share with friends.</li>
+        <li><img src="icons/index3.png" alt="Step 3"> Surprise them with cake and loving messages.</li>
+      </ul>
+      <button id="startBtn">START</button>
+    </div>
+    <div class="right-panel">
+      <h2>Customize your cake!</h2>
+      <div id="container3D" style="width: 100%; height: 100vh;"></div>
+    </div>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+  <script>
+    document.getElementById("startBtn").addEventListener("click", () => {
+      window.location.href = "shape.html";
+    });
+  </script>
+</body>
+</html>

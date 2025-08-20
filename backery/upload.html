@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Birthdaycake</title>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+  <div class="container">
+    <div class="left-panel">
+      <h1>Upload <span>Image</span></h1>
+      <p>Select an image to decorate your cake!</p>
+
+      <p style="color:red; font-weight:bold; text-align:center; padding:10px;">
+        Please upload your image (Recommended: 1024×1024 px)
+      </p>
+
+      <div class="upload-section">
+        <h3>Choose File:</h3>
+        <input type="file" id="customImage" accept="image/*" />
+      </div>
+
+      <div class="next-button-container">
+        <button id="applyImageBtn">Apply & Preview 🎂</button>
+        <button id="nextBtn">Next ➡️</button>
+        <button onclick="goBack()">⬅️ Back</button>
+      </div>
+    </div>
+
+    <div class="right-panel">
+      <h2>Happy Birthday!</h2>
+      <div id="container3D"></div>
+    </div>
+  </div>
+
+  <script type="module" src="js/upload.js"></script>
+  <script>
+    function goBack() {
+      window.location.href = "design.html";
+    }
+  </script>
+</body>
+</html>

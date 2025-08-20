@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Decorate Cake</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="left-panel">
+      <h1>Decorate the <br><span>Cake</span></h1>
+      <p>Choose icing color:</p>
+      <div class="select-buttons">
+        <div class="select-card" onclick="selectIcing('vanilla')">
+          <img src="icons/vanilla.png" alt="Vanilla Icing">
+          <p>🤍 Vanilla</p>
+        </div>
+        <div class="select-card" onclick="selectIcing('chocolate')">
+          <img src="icons/chocolate.png" alt="Chocolate Icing">
+          <p>🍫 Chocolate</p>
+        </div>
+        <div class="select-card" onclick="selectIcing('strawberry')">
+          <img src="icons/strawberry.jpg" alt="Strawberry Icing">
+          <p>🍓 Strawberry</p>
+        </div>
+      </div>
+      <div class="next-button-container">
+        <button id="nextBtn">Next ➡️</button>
+        <button onclick="goBack()">⬅️ Back</button>
+        <button id="clearBtn">❌ Clear</button>
+      </div>
+    </div>
+    <div class="right-panel">
+      <h2>Preview</h2>
+      <div id="container3D" style="width: 100%; height: 100vh;"></div>
+    </div>
+  </div>
+
+  <script type="module" src="js/icing.js"></script>
+  <script>
+    let selectedFlavor = null;
+
+    function selectIcing(flavor) {
+      selectedFlavor = flavor;
+      localStorage.setItem('selectedIcing', flavor);
+      if (window.selectIcing) window.selectIcing(flavor);
+      highlightSelectedCard(flavor);
+    }
+
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      if (!selectedFlavor && !localStorage.getItem('selectedIcing')) {
+        alert("Please select an icing flavor before proceeding.");
+        return;
+      }
+      window.location.href = "design.html";
+    });
+
+    document.getElementById('clearBtn').addEventListener('click', () => {
+      if (!confirm("Are you sure you want to clear the selected icing?")) return;
+
+      localStorage.removeItem('selectedIcing');
+      if (window.selectIcing) window.selectIcing(null);
+
+      document.querySelectorAll('.select-card').forEach(card => {
+        card.classList.remove('selected');
+      });
+
+      selectedFlavor = null;
+    });
+
+    function goBack() {
+      window.location.href = "shape.html";
+    }
+
+    function highlightSelectedCard(flavor) {
+      document.querySelectorAll('.select-card').forEach(card => {
+        card.classList.remove('selected');
+        if (card.innerText.toLowerCase().includes(flavor)) {
+          card.classList.add('selected');
+        }
+      });
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const icingStored = localStorage.getItem('selectedIcing');
+      if (icingStored) highlightSelectedCard(icingStored);
+    });
+  </script>
+</body>
+</html>

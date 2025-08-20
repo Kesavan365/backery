@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Decorate Your Cake - Sprinkles</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Left Panel -->
+    <div class="left-panel">
+      <h1>Add <br><span>Sprinkles</span></h1>
+
+      <h2>✨ Sprinkles Types</h2>
+      <div id="select-buttons" style="display: flex; gap: 10px; margin-bottom: 10px;">
+        <div class="select-card" onclick="changeSprinkleCategory('rainbow')">
+          <img src="icons/rainbow_sprinkles.png" alt="Rainbow Sprinkles" style="width: 60px; height: 60px;">
+          <p>Rainbow</p>
+        </div>
+        <div class="select-card" onclick="changeSprinkleCategory('choco')">
+          <img src="icons/choco_sprinkles.jpg" alt="Chocolate Sprinkles" style="width: 60px; height: 60px;">
+          <p>Chocolate</p>
+        </div>
+        <div class="select-card" onclick="changeSprinkleCategory('sugar')">
+          <img src="icons/sugar_sprinkles.png" alt="Sugar Sprinkles" style="width: 60px; height: 60px;">
+          <p>Sugar</p>
+        </div>
+      </div>
+
+      <div class="next-button-container">
+        <button onclick="goNext()">Next ➡️</button>
+        <button onclick="goBack()">⬅️ Back</button>
+        <button id="clearBtn">❌ Clear</button>
+      </div>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="right-panel">
+      <h2>Preview</h2>
+      <div id="container3D" style="width: 100%; height: 100vh;"></div>
+      <div id="sprinkle-controls" style="display: none;">
+        <button id="prevSprinkle">⬅</button>
+        <button id="nextSprinkle">➡</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/sprinkles.js"></script>
+</body>
+</html>

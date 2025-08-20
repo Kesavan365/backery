@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Decorate Your Cake</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="left-panel">
+      <h1>Decorate Your <br><span>Cake</span></h1>
+
+      <h2>🎉 Decorations</h2>
+      <!-- Candle Category Selection -->
+      <div id="select-buttons" style="display: flex; gap: 10px; margin-bottom: 10px;">
+        <div class="select-card" onclick="changeCandleCategory('wax')">
+          <img src="icons/wax_candle.png" alt="Wax Candle" style="width: 60px; height: 60px;">
+          <p>Wax</p>
+        </div>
+        <div class="select-card" onclick="changeCandleCategory('sparkler')">
+          <img src="icons/sparkler_candle.png" alt="Sparkler Candle" style="width: 60px; height: 60px;">
+          <p>Sparkler</p>
+        </div>
+        <div class="select-card" onclick="changeCandleCategory('number')">
+          <img src="icons/number_candle.png" alt="Number Candle" style="width: 60px; height: 60px;">
+          <p>Number</p>
+        </div>
+      </div>
+
+      <div class="next-button-container">
+        <button onclick="goNext()">Next ➡️</button>
+        <button onclick="goBack()">⬅️ Back</button>
+        <button id="clearBtn">❌ Clear</button>
+      </div>
+    </div>
+
+    <div class="right-panel">
+      <h2>Preview</h2>
+      <div id="container3D" style="width: 100%; height: 100vh;"></div>
+      <div id="candle-controls" style="display:none;">
+        <button id="prevCandle">⬅</button>
+        <button id="nextCandle">➡</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/candle.js"></script>
+</body>
+</html>
